@@ -1,0 +1,39 @@
+# Hackathon AI Framework - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# Core Web Framework
+streamlit==1.32.0
+
+# AI & LLM
+openai==1.12.0
+
+# Vector Database
+chromadb==0.4.22
+
+# Environment Variables
+python-dotenv==1.0.1
+
+# Document Processing
+PyPDF2==3.0.1
+python-docx==1.1.0
+PyMuPDF==1.23.26
+
+# Image Processing
+Pillow==10.2.0
+pytesseract==0.3.10
+
+# Optional: Advanced Features (uncomment if needed)
+# plotly==5.18.0                    # For charts and visualizations
+# pandas==2.2.0                     # For data manipulation
+# numpy==1.26.3                     # For numerical operations
+# streamlit-mic-recorder==0.0.8     # For voice input
+# sentence-transformers==2.3.1      # For better embeddings
+# langchain==0.1.0                  # For advanced LLM chains
+
+# Database (SQLite is built into Python - no installation needed!)
+
+# Notes:
+# - Tesseract OCR must be installed separately (see README)
+# - All packages are compatible with Python 3.8+
+# - Total install size: ~500MB
+# - Install time: ~2-3 minutes on good internet

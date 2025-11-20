@@ -1,0 +1,891 @@
+# 🚀 Generic Conversational AI Agent Framework
+## Hackathon Rapid Deployment System
+
+**Version:** 2.0  
+**Last Updated:** November 2024  
+**Deployment Time:** 15-30 minutes per use case
+
+---
+
+## 📋 Framework Overview
+
+This framework enables rapid deployment of AI-powered solutions for any hackathon challenge. It consists of three independent but interconnected modules that can be customized in minutes.
+
+### Architecture Components
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    HACKATHON FRAMEWORK                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐    │
+│  │   MODULE 1   │  │   MODULE 2   │  │   MODULE 3   │    │
+│  │              │  │              │  │              │    │
+│  │  Web App UI  │◄─┤  AI Agent    │◄─┤   Database   │    │
+│  │  (Streamlit) │  │  (OpenAI)    │  │   (SQLite)   │    │
+│  │              │  │              │  │              │    │
+│  └──────────────┘  └──────────────┘  └──────────────┘    │
+│         │                  │                  │            │
+│         └──────────────────┴──────────────────┘            │
+│                            │                               │
+│                    ┌───────▼────────┐                     │
+│                    │  Config Files  │                     │
+│                    │  (.md, .env)   │                     │
+│                    └────────────────┘                     │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎯 Quick Start Guide (Hackathon Day)
+
+### Prerequisites Checklist
+- [ ] Python 3.8+ installed
+- [ ] OpenAI API key received
+- [ ] Use case problem statement understood
+- [ ] 30 minutes available for setup
+
+### 5-Step Deployment
+
+#### Step 1: Environment Setup (5 min)
+```bash
+# Clone or extract framework
+cd hackathon-ai-framework
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure API key
+echo "OPENAI_API_KEY=your_key_here" > .env
+```
+
+#### Step 2: Customize System Prompts (10 min)
+Edit `SYSTEM_PROMPTS.md`:
+- Update Main System Prompt for use case
+- Adjust guardrails for domain
+- Set response tone/style
+
+#### Step 3: Design Use Case Database (10 min)
+Edit `use_case_db_schema.py`:
+- Define tables for scenario data
+- Populate sample data
+- Test queries
+
+#### Step 4: Launch Application (2 min)
+```bash
+streamlit run web_app.py
+```
+
+#### Step 5: Demo & Iterate (ongoing)
+- Test with judges' questions
+- Refine prompts in real-time
+- Showcase AI capabilities
+
+---
+
+## 📦 Module 1: Web Application UI
+
+**File:** `web_app.py`  
+**Purpose:** User-facing chat interface for demonstrations  
+**Technology:** Streamlit (no frontend coding needed)
+
+### Features
+- 💬 Chat interface with history
+- 📤 File upload (documents, images)
+- 📊 Data visualization
+- 🎨 Customizable branding
+- 📱 Responsive design
+
+### Customization Points
+```python
+# In web_app.py
+
+# 1. Page Title & Icon
+st.set_page_config(
+    page_title="Your Use Case Name",
+    page_icon="🤖",
+)
+
+# 2. Welcome Message
+WELCOME_MESSAGE = """
+Welcome to [Your Solution Name]!
+Describe your AI's purpose here.
+"""
+
+# 3. Sidebar Configuration
+with st.sidebar:
+    st.header("Your Feature Name")
+    # Add use-case specific controls
+```
+
+### File Structure
+```
+web_app/
+├── web_app.py              # Main application
+├── components/
+│   ├── chat_interface.py   # Chat UI components
+│   ├── file_uploader.py    # Document handling
+│   └── visualizations.py   # Charts & graphs
+└── assets/
+    ├── logo.png            # Your branding
+    └── styles.css          # Custom styling
+```
+
+---
+
+## 🤖 Module 2: AI Agent Engine
+
+**File:** `ai_agent.py`  
+**Purpose:** Core conversational AI with multi-modal capabilities  
+**Model:** OpenAI GPT-4o-mini (or specified model)
+
+### Core Capabilities
+1. **Document Understanding** (PDF, DOCX, TXT)
+2. **Image Analysis** (OCR + Vision AI)
+3. **Conversational Memory** (RAG with ChromaDB)
+4. **Tool Use** (Function calling, API integration)
+5. **Safety Guardrails** (Dynamic content filtering)
+
+### Agent Architecture
+```python
+class GenericAIAgent:
+    """
+    Modular AI agent for rapid hackathon deployment
+    """
+    def __init__(self, config_path: str):
+        self.system_prompt = self.load_prompt(config_path)
+        self.guardrails = self.load_guardrails(config_path)
+        self.tools = self.load_tools()
+        self.memory = VectorMemory()
+    
+    def process_query(self, user_input: str):
+        # 1. Guardrail check
+        if not self.guardrails.validate(user_input):
+            return self.guardrails.get_response()
+        
+        # 2. Retrieve relevant context
+        context = self.memory.retrieve(user_input)
+        
+        # 3. Tool selection (if needed)
+        tools = self.select_tools(user_input)
+        
+        # 4. Generate response
+        response = self.llm.generate(
+            system=self.system_prompt,
+            user=user_input,
+            context=context,
+            tools=tools
+        )
+        
+        # 5. Update memory
+        self.memory.store(user_input, response)
+        
+        return response
+```
+
+### File Structure
+```
+ai_agent/
+├── ai_agent.py              # Main agent class
+├── config.py                # Configuration loader
+├── document_processor.py    # Multi-format parsing
+├── rag_engine.py            # RAG & vector search
+├── tool_registry.py         # Available tools/functions
+└── guardrails.py            # Safety & validation
+```
+
+### Customization for Use Cases
+
+#### Example 1: Customer Support Bot
+```markdown
+# SYSTEM_PROMPTS.md
+
+### Full Prompt
+You are a customer support AI for [Company Name].
+
+Your responsibilities:
+1. Answer product questions using the knowledge base
+2. Escalate complex issues to human agents
+3. Track conversation context for continuity
+4. Maintain a friendly, helpful tone
+
+Guardrails:
+- Never promise refunds without verification
+- Don't access sensitive customer data
+- Redirect billing questions to secure portal
+```
+
+#### Example 2: Medical Triage Assistant
+```markdown
+# SYSTEM_PROMPTS.md
+
+### Full Prompt
+You are a medical triage assistant for [Clinic Name].
+
+Your responsibilities:
+1. Assess symptom urgency based on protocols
+2. Recommend appropriate care level (ER, urgent care, home)
+3. NEVER diagnose or prescribe
+4. Collect patient information systematically
+
+Guardrails:
+- Always disclaimer: "This is not medical advice"
+- Escalate immediately for: chest pain, difficulty breathing
+- Do not interpret test results
+```
+
+#### Example 3: Legal Document Analyzer
+```markdown
+# SYSTEM_PROMPTS.md
+
+### Full Prompt
+You are a legal document analysis assistant.
+
+Your responsibilities:
+1. Extract key clauses from contracts
+2. Identify potential risks or unusual terms
+3. Summarize obligations for both parties
+4. Flag inconsistencies or ambiguities
+
+Guardrails:
+- Disclaimer: "This is not legal advice"
+- Never recommend specific legal actions
+- Don't interpret complex jurisdictional issues
+```
+
+---
+
+## 🗄️ Module 3: Local Database System
+
+**File:** `use_case_database.py`  
+**Purpose:** Lightweight, zero-setup data storage  
+**Technology:** SQLite (built into Python)
+
+### Why SQLite for Hackathons?
+✅ No installation required  
+✅ Single file database  
+✅ SQL support  
+✅ Fast for demos  
+✅ Easy to reset/modify
+
+### Database Architecture
+
+```python
+# use_case_database.py
+
+import sqlite3
+from pathlib import Path
+
+class UseCaseDatabase:
+    """
+    Generic database handler for any use case
+    """
+    def __init__(self, db_path: str = "use_case.db"):
+        self.db_path = db_path
+        self.conn = sqlite3.connect(db_path)
+        self.cursor = self.conn.cursor()
+    
+    def create_schema(self, schema_sql: str):
+        """Execute SQL schema definition"""
+        self.cursor.executescript(schema_sql)
+        self.conn.commit()
+    
+    def query(self, sql: str, params: tuple = ()):
+        """Execute SELECT query"""
+        self.cursor.execute(sql, params)
+        return self.cursor.fetchall()
+    
+    def execute(self, sql: str, params: tuple = ()):
+        """Execute INSERT/UPDATE/DELETE"""
+        self.cursor.execute(sql, params)
+        self.conn.commit()
+        return self.cursor.lastrowid
+```
+
+### Schema Templates by Use Case
+
+#### Template 1: E-commerce Platform
+```sql
+-- schema_ecommerce.sql
+
+CREATE TABLE IF NOT EXISTS products (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    category TEXT,
+    price REAL,
+    stock INTEGER,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    product_id INTEGER,
+    quantity INTEGER,
+    order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status TEXT
+);
+
+CREATE TABLE IF NOT EXISTS customers (
+    id INTEGER PRIMARY KEY,
+    name TEXT,
+    email TEXT UNIQUE,
+    phone TEXT,
+    address TEXT
+);
+
+-- Sample Data
+INSERT INTO products VALUES 
+    (1, 'Laptop', 'Electronics', 999.99, 50, 'High-performance laptop'),
+    (2, 'Mouse', 'Accessories', 29.99, 200, 'Wireless mouse');
+```
+
+#### Template 2: Healthcare System
+```sql
+-- schema_healthcare.sql
+
+CREATE TABLE IF NOT EXISTS patients (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    dob DATE,
+    blood_type TEXT,
+    allergies TEXT,
+    emergency_contact TEXT
+);
+
+CREATE TABLE IF NOT EXISTS appointments (
+    id INTEGER PRIMARY KEY,
+    patient_id INTEGER,
+    doctor_name TEXT,
+    appointment_date TIMESTAMP,
+    reason TEXT,
+    status TEXT,
+    FOREIGN KEY (patient_id) REFERENCES patients(id)
+);
+
+CREATE TABLE IF NOT EXISTS medical_records (
+    id INTEGER PRIMARY KEY,
+    patient_id INTEGER,
+    record_date TIMESTAMP,
+    diagnosis TEXT,
+    treatment TEXT,
+    notes TEXT,
+    FOREIGN KEY (patient_id) REFERENCES patients(id)
+);
+```
+
+#### Template 3: Educational Platform
+```sql
+-- schema_education.sql
+
+CREATE TABLE IF NOT EXISTS students (
+    id INTEGER PRIMARY KEY,
+    name TEXT NOT NULL,
+    email TEXT UNIQUE,
+    enrollment_date DATE,
+    grade_level INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+    id INTEGER PRIMARY KEY,
+    title TEXT NOT NULL,
+    instructor TEXT,
+    credits INTEGER,
+    description TEXT
+);
+
+CREATE TABLE IF NOT EXISTS enrollments (
+    id INTEGER PRIMARY KEY,
+    student_id INTEGER,
+    course_id INTEGER,
+    enrollment_date TIMESTAMP,
+    grade TEXT,
+    FOREIGN KEY (student_id) REFERENCES students(id),
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+
+CREATE TABLE IF NOT EXISTS assignments (
+    id INTEGER PRIMARY KEY,
+    course_id INTEGER,
+    title TEXT,
+    due_date DATE,
+    max_points INTEGER,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);
+```
+
+### Database Integration with AI Agent
+
+```python
+# In ai_agent.py
+
+from use_case_database import UseCaseDatabase
+
+class GenericAIAgent:
+    def __init__(self, db_path: str):
+        self.db = UseCaseDatabase(db_path)
+        # ... other initialization
+    
+    def query_database(self, natural_language_query: str):
+        """
+        Convert natural language to SQL and execute
+        """
+        # Use LLM to generate SQL from natural language
+        sql_query = self.llm.generate_sql(
+            query=natural_language_query,
+            schema=self.db.get_schema()
+        )
+        
+        # Execute with safety checks
+        if self.validate_sql(sql_query):
+            results = self.db.query(sql_query)
+            return self.format_results(results)
+        else:
+            return "I cannot execute that query safely."
+```
+
+---
+
+## 🛡️ Dynamic Configuration System
+
+### System Prompts File Structure
+
+```markdown
+# SYSTEM_PROMPTS.md
+
+## Use Case: [YOUR USE CASE NAME]
+
+### Full Prompt
+[Your detailed system instructions here]
+
+### Guardrail Response
+[Response when guardrails triggered]
+
+### Prohibited Patterns
+- pattern1
+- pattern2
+- pattern3
+
+### Allowed Operations
+- operation1
+- operation2
+```
+
+### Loading Configuration at Runtime
+
+```python
+# config.py
+
+class DynamicConfig:
+    @staticmethod
+    def load_for_use_case(use_case: str):
+        """
+        Load configuration based on use case identifier
+        """
+        config_file = f"configs/{use_case}/SYSTEM_PROMPTS.md"
+        
+        with open(config_file, 'r') as f:
+            content = f.read()
+        
+        # Parse sections
+        config = {
+            'system_prompt': extract_section(content, 'Full Prompt'),
+            'guardrails': extract_section(content, 'Guardrail Response'),
+            'prohibited': extract_list(content, 'Prohibited Patterns'),
+            'allowed': extract_list(content, 'Allowed Operations')
+        }
+        
+        return config
+```
+
+---
+
+## 🎭 Use Case Examples & Templates
+
+### Use Case 1: Customer Service Automation
+
+**Problem:** Handle 1000s of customer inquiries simultaneously
+
+**Solution Components:**
+1. **Database:** Customer data, product catalog, order history
+2. **AI Prompt:** Customer service representative persona
+3. **Web App:** Chat interface with order lookup
+
+**Demo Script:**
+```
+User: "Where is my order #12345?"
+AI: [Queries database] → "Your order shipped yesterday via FedEx. 
+     Tracking: 1Z999AA10123456784. Estimated delivery: Nov 22."
+
+User: "Can I return it?"
+AI: [Checks return policy in documents] → "Yes, you have 30 days. 
+     Would you like me to generate a return label?"
+```
+
+### Use Case 2: Medical Appointment Scheduling
+
+**Problem:** Reduce administrative burden on clinic staff
+
+**Solution Components:**
+1. **Database:** Doctor schedules, patient records, appointment slots
+2. **AI Prompt:** Medical receptionist with HIPAA awareness
+3. **Web App:** Appointment booking interface
+
+**Demo Script:**
+```
+User: "I need to see Dr. Smith next week for a checkup"
+AI: [Queries availability] → "Dr. Smith has openings on:
+     - Tuesday 11/21 at 2:00 PM
+     - Thursday 11/23 at 10:30 AM
+     Which works better?"
+
+User: "Tuesday works"
+AI: [Creates appointment] → "Booked! Confirmation sent to your email.
+     Reminder: Bring insurance card and arrive 15 min early."
+```
+
+### Use Case 3: Legal Document Review
+
+**Problem:** Analyze contracts for red flags quickly
+
+**Solution Components:**
+1. **Database:** Template clauses, legal precedents
+2. **AI Prompt:** Legal analyst with contract expertise
+3. **Web App:** Document upload with clause extraction
+
+**Demo Script:**
+```
+User: [Uploads employment contract PDF]
+AI: [Analyzes document] → "Contract analysis complete:
+     
+     ⚠️ Concerns Found:
+     - Non-compete clause: 2 years (industry standard: 1 year)
+     - Intellectual property: Broad assignment of rights
+     
+     ✅ Standard Clauses:
+     - Termination: 2 weeks notice
+     - Benefits: Comprehensive package"
+```
+
+---
+
+## ⚙️ Configuration Recipes
+
+### Recipe 1: Formal & Professional
+```markdown
+### Tone Configuration
+- Language: Formal, precise
+- Address user as: "you" (professional)
+- Response length: Detailed (3-5 sentences)
+- Technical level: High
+```
+
+### Recipe 2: Casual & Friendly
+```markdown
+### Tone Configuration
+- Language: Conversational, approachable
+- Address user as: First name
+- Response length: Concise (1-2 sentences)
+- Technical level: Low (explain jargon)
+```
+
+### Recipe 3: Educational
+```markdown
+### Tone Configuration
+- Language: Instructive, patient
+- Address user as: "student" or name
+- Response length: Step-by-step explanations
+- Technical level: Progressive (builds understanding)
+```
+
+---
+
+## 🚨 Guardrails Configuration
+
+### Safety Levels
+
+#### Level 1: Permissive (Public demos)
+```python
+PROHIBITED_PATTERNS = [
+    "illegal", "harmful", "dangerous", "weapon"
+]
+```
+
+#### Level 2: Standard (Most use cases)
+```python
+PROHIBITED_PATTERNS = [
+    "hack", "exploit", "illegal", "harmful", "dangerous",
+    "weapon", "drug", "violence", "fraud", "scam"
+]
+```
+
+#### Level 3: Strict (Sensitive domains)
+```python
+PROHIBITED_PATTERNS = [
+    # All Level 2 patterns +
+    "diagnose", "prescribe", "investment advice",
+    "legal advice", "tax advice", "bypass", "override"
+]
+```
+
+### Custom Guardrail Functions
+
+```python
+# guardrails.py
+
+def check_medical_guardrails(query: str) -> bool:
+    """Specific to healthcare use cases"""
+    medical_prohibited = [
+        "diagnose me", "what medication", "prescribe",
+        "instead of seeing a doctor"
+    ]
+    return not any(p in query.lower() for p in medical_prohibited)
+
+def check_financial_guardrails(query: str) -> bool:
+    """Specific to financial use cases"""
+    financial_prohibited = [
+        "guaranteed returns", "invest all", "sure thing",
+        "can't lose", "tax evasion"
+    ]
+    return not any(p in query.lower() for p in financial_prohibited)
+```
+
+---
+
+## 📊 Performance Optimization
+
+### For Hackathon Demos
+
+1. **Cache Embeddings**
+```python
+from functools import lru_cache
+
+@lru_cache(maxsize=100)
+def get_embedding(text: str):
+    return openai.Embedding.create(input=text, model="text-embedding-3-small")
+```
+
+2. **Pre-load Common Queries**
+```python
+# preload.py
+COMMON_QUERIES = {
+    "greeting": "Hello! How can I help you today?",
+    "capabilities": "I can assist with [X], [Y], and [Z].",
+    "help": "Try asking me about [example questions]"
+}
+```
+
+3. **Limit Token Usage**
+```python
+# config.py
+MAX_TOKENS = {
+    "demo": 200,      # Fast responses
+    "detailed": 500,  # Comprehensive answers
+    "analysis": 1000  # Deep analysis
+}
+```
+
+---
+
+## 🎯 Judging Criteria Alignment
+
+### Innovation (25%)
+- **Show:** Unique application of AI for the use case
+- **Highlight:** Multi-modal capabilities (text + image)
+- **Demo:** Creative problem-solving approach
+
+### Technical Implementation (25%)
+- **Show:** Clean architecture, modular design
+- **Highlight:** Real-time prompt reloading, dynamic config
+- **Demo:** Robust error handling, graceful failures
+
+### User Experience (25%)
+- **Show:** Intuitive interface, clear responses
+- **Highlight:** Natural conversation flow
+- **Demo:** Quick response times, helpful suggestions
+
+### Business Impact (25%)
+- **Show:** Clear value proposition
+- **Highlight:** Quantifiable improvements (time/cost savings)
+- **Demo:** Scalability and real-world applicability
+
+---
+
+## 🔧 Troubleshooting Guide
+
+### Common Issues & Fixes
+
+#### Issue: API Rate Limits
+**Solution:** Implement exponential backoff
+```python
+import time
+from openai import RateLimitError
+
+def api_call_with_retry(func, max_retries=3):
+    for i in range(max_retries):
+        try:
+            return func()
+        except RateLimitError:
+            wait_time = 2 ** i
+            time.sleep(wait_time)
+    raise Exception("Max retries exceeded")
+```
+
+#### Issue: Slow First Response
+**Solution:** Warm-up the model on launch
+```python
+# On app startup
+def warmup():
+    agent.process_query("Hello")  # Dummy query
+```
+
+#### Issue: Database Lock
+**Solution:** Use WAL mode for SQLite
+```python
+conn.execute("PRAGMA journal_mode=WAL")
+```
+
+---
+
+## 📝 Deployment Checklist
+
+### Pre-Demo (30 min before)
+- [ ] Environment variables loaded
+- [ ] Database populated with sample data
+- [ ] System prompts customized for use case
+- [ ] Test 5 example queries
+- [ ] Check API quota/limits
+- [ ] Prepare backup responses (if API fails)
+
+### During Demo
+- [ ] Start with clear use case explanation
+- [ ] Show 2-3 simple queries first
+- [ ] Demonstrate 1 complex query
+- [ ] Highlight unique features
+- [ ] Show database/config customization
+- [ ] Handle questions confidently
+
+### Post-Demo
+- [ ] Gather judge feedback
+- [ ] Note improvement opportunities
+- [ ] Export demo conversation logs
+- [ ] Save final configuration
+
+---
+
+## 🏆 Success Metrics
+
+### What Good Looks Like
+
+**Response Quality:**
+- 95%+ relevant answers
+- <3 seconds average latency
+- Natural, contextual conversations
+
+**Technical Robustness:**
+- Zero crashes during demo
+- Graceful error handling
+- Clear user feedback
+
+**Judge Engagement:**
+- Active question-asking
+- Visible "wow" moments
+- Follow-up interest
+
+---
+
+## 📚 Additional Resources
+
+### OpenAI Resources
+- [Prompt Engineering Guide](https://platform.openai.com/docs/guides/prompt-engineering)
+- [Function Calling](https://platform.openai.com/docs/guides/function-calling)
+- [Vision API](https://platform.openai.com/docs/guides/vision)
+
+### Framework Resources
+- [Streamlit Docs](https://docs.streamlit.io/)
+- [SQLite Tutorial](https://www.sqlitetutorial.net/)
+- [ChromaDB Guide](https://docs.trychroma.com/)
+
+### Best Practices
+- [RAG Best Practices](https://www.anthropic.com/index/retrieval-augmented-generation)
+- [AI Safety Guidelines](https://openai.com/safety)
+- [Prompt Injection Defense](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/)
+
+---
+
+## 🤝 Team Workflow
+
+### Recommended Roles (Team of 3-4)
+
+**Role 1: AI Engineer**
+- Customize system prompts
+- Tune model parameters
+- Handle RAG pipeline
+
+**Role 2: Data Engineer**
+- Design database schema
+- Populate sample data
+- Optimize queries
+
+**Role 3: Frontend Developer**
+- Customize Streamlit UI
+- Create visualizations
+- Polish user experience
+
+**Role 4: Product/Demo Lead**
+- Craft demo narrative
+- Prepare judge questions
+- Handle presentations
+
+### Timeline (4-hour hackathon)
+
+**Hour 1:** Problem analysis, architecture planning  
+**Hour 2:** Parallel development (DB + AI + UI)  
+**Hour 3:** Integration, testing, refinement  
+**Hour 4:** Demo preparation, rehearsal, final polish
+
+---
+
+## 🎓 Learning Path
+
+### If You Have 2 Hours Before Hackathon
+1. Read this document (30 min)
+2. Run example use case (30 min)
+3. Modify system prompts (30 min)
+4. Practice demo flow (30 min)
+
+### If You Have 1 Week Before Hackathon
+1. Build 3 different use case demos
+2. Experiment with advanced RAG techniques
+3. Study prompt engineering patterns
+4. Practice live coding under pressure
+
+---
+
+## 🔮 Future Enhancements
+
+### Post-Hackathon Extensions
+
+1. **Multi-Agent Systems:** Coordinate specialized agents
+2. **Streaming Responses:** Real-time token generation
+3. **Voice Interface:** Speech-to-text integration
+4. **Analytics Dashboard:** Usage metrics, performance tracking
+5. **Cloud Deployment:** Docker + AWS/Azure/GCP
+6. **Fine-tuning:** Custom model training on domain data
+
+---
+
+## 📄 License & Credits
+
+**Framework:** Open-source (MIT License)  
+**AI Models:** OpenAI API (requires key)  
+**Created for:** Hackathon rapid deployment
+
+**Contributors Welcome:** Submit use case templates, schema examples, or optimization tips!
+
+---
+
+**Ready to Win? Let's Build! 🚀**
+
+*Last Updated: November 2024*  
+*Version: 2.0 - Hackathon Edition*
