@@ -1,0 +1,26 @@
+{
+  "zmart": {
+    "name": "zmart",
+    "description": "Super Market",
+    "data_dir": "retail_businesses\\zmart",
+    "db_dir": "retail_vector_dbs\\zmart",
+    "created_at": "2025-12-22T00:11:37.763963",
+    "csv_files": {
+      "items": "retail_businesses\\zmart\\zmart_items.csv",
+      "users": "retail_businesses\\zmart\\zmart_users.csv",
+      "purchase_history": "retail_businesses\\zmart\\zmart_purchase_history.csv"
+    }
+  },
+  "meta_pizza": {
+    "name": "Meta Pizza",
+    "description": "Pizza Shop",
+    "data_dir": "retail_businesses\\meta_pizza",
+    "db_dir": "retail_vector_dbs\\meta_pizza",
+    "created_at": "2025-12-22T00:17:26.071316",
+    "csv_files": {
+      "items": "retail_businesses\\meta_pizza\\meta_pizza_items.csv",
+      "users": "retail_businesses\\meta_pizza\\meta_pizza_users.csv",
+      "purchase_history": "retail_businesses\\meta_pizza\\meta_pizza_purchase_history.csv"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+product_id,product_name,type,base_type,selling_price,cost_price,discount_pct,available_qty,description,tags
+MP001,Margherita Pizza,Pizza,Thin Crust,399,150,5,"Crispy thin crust pizza with fresh tomato sauce, mozzarella cheese, and basil leaves","vegetarian,cheese,classic"
+MP002,Pepperoni Special,Pizza,Thick Crust,549,220,10,"Thick crust pizza loaded with premium pepperoni slices, cheese blend, and Italian herbs","non-veg,meat,popular"
+MP003,Farmhouse Veggie,Pizza,Thin Crust,449,180,8,"Fresh vegetables including bell peppers, onions, mushrooms, and corn on thin crust","vegetarian,healthy,fresh"
+MP004,Paneer Tikka Masala,Pizza,Thick Crust,499,200,5,"Indian fusion pizza with paneer tikka pieces, tandoori sauce, and mozzarella on thick crust","vegetarian,fusion,spicy"
+MP005,BBQ Chicken Delight,Pizza,Thin Crust,599,240,12,"Thin crust topped with BBQ chicken, onions, capsicum, and cheddar cheese blend","non-veg,bbq,smoky"
+MP006,Veggie Supreme,Pizza,Thin Crust,469,185,7,"Mix of fresh broccoli, zucchini, mushrooms, and olives with extra cheese","vegetarian,premium,nutritious"
+MP007,Garlic Bread (4 pcs),Side,Bread,199,60,10,"Crispy bread slices brushed with garlic butter and herbs, baked to perfection","appetizer,bread,garlic"
+MP008,Cheese Garlic Bread (4 pcs),Side,Bread,249,90,8,"Garlic bread loaded with mozzarella and cheddar cheese blend","appetizer,cheese,bread"
+MP009,Coke 500ml,Beverage,Soft Drink,50,15,5,"Cold Coca-Cola, perfect with pizza","beverage,cold,coke"
+MP010,Sprite 500ml,Beverage,Soft Drink,50,15,5,"Fresh Sprite, crisp lemon flavor","beverage,cold,sprite"

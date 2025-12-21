@@ -1,0 +1,41 @@
+purchase_id,user_id,item_id,purchase_date,quantity,total_amount,payment_method,rating,review
+P001,U001,I001,2024-12-18,2,900,UPI,5,"Excellent quality rice, perfect for biryani"
+P002,U001,I002,2024-12-10,1,650,Credit Card,4,Good quality oil
+P003,U002,I011,2024-12-20,1,2999,UPI,5,"Very comfortable shoes, great for running"
+P004,U002,I014,2024-12-15,2,798,Cash,5,Love the color and finish
+P005,U003,I005,2024-12-19,1,32999,EMI,5,"Amazing picture quality, smart features are great"
+P006,U003,I001,2024-12-05,3,1350,UPI,4,Good rice for daily use
+P007,U004,I012,2024-12-17,1,2499,UPI,4,"Perfect fit, good quality denim"
+P008,U004,I001,2024-12-10,2,900,Credit Card,5,Best basmati rice
+P009,U005,I003,2024-12-15,2,840,Cash,5,"Strong tea, perfect blend"
+P010,U005,I025,2024-12-08,1,4999,Credit Card,5,Excellent fitness tracking features
+P011,U006,I014,2024-12-19,3,1197,UPI,5,My favorite lipstick brand
+P012,U006,I011,2024-12-12,1,2999,Credit Card,4,Good shoes for gym
+P013,U007,I008,2024-12-18,1,2999,UPI,5,"Cooks fast, very convenient"
+P014,U007,I001,2024-12-05,2,900,Cash,4,Good quality
+P015,U008,I015,2024-12-20,2,998,UPI,5,"Great face cream, very effective"
+P016,U008,I022,2024-12-14,5,300,Cash,5,Kids love these cookies
+P017,U009,I006,2024-12-16,1,1499,UPI,5,"Amazing sound quality, great bass"
+P018,U009,I017,2024-12-10,1,2799,Credit Card,5,Professional quality racket
+P019,U010,I011,2024-12-19,1,2999,UPI,4,Stylish and comfortable
+P020,U010,I014,2024-12-12,1,399,Cash,5,Perfect shade for me
+P021,U011,I007,2024-12-17,1,24999,EMI,5,Very spacious and energy efficient
+P022,U011,I001,2024-12-08,4,1800,UPI,5,Always buy this brand
+P023,U012,I013,2024-12-18,2,3798,Credit Card,5,Beautiful traditional wear
+P024,U012,I020,2024-12-10,3,432,Cash,4,Quick and tasty
+P025,U013,I025,2024-12-20,1,4999,UPI,5,Perfect for tracking workouts
+P026,U013,I018,2024-12-14,1,799,Credit Card,4,Good quality football
+P027,U014,I012,2024-12-19,2,4998,UPI,4,Good fit and quality
+P028,U014,I001,2024-12-11,2,900,Cash,5,Best rice for pulao
+P029,U015,I005,2024-12-16,1,32999,EMI,5,Excellent value for money
+P030,U015,I008,2024-12-08,2,5998,Credit Card,5,Bought for both home and office
+P031,U016,I014,2024-12-18,2,798,UPI,5,Long lasting lipstick
+P032,U016,I011,2024-12-10,1,2999,Credit Card,5,Very comfortable
+P033,U017,I003,2024-12-17,3,1260,Cash,5,Strong and flavorful
+P034,U017,I017,2024-12-12,1,2799,UPI,4,Good racket for intermediate players
+P035,U018,I011,2024-12-20,1,2999,UPI,5,Love the design
+P036,U018,I014,2024-12-15,1,399,Cash,4,Nice color
+P037,U019,I010,2024-12-15,2,6998,Credit Card,5,Works perfectly in cold weather
+P038,U019,I001,2024-12-08,3,1350,UPI,5,Premium quality rice
+P039,U020,I015,2024-12-19,2,998,UPI,5,Great for summer protection
+P040,U020,I012,2024-12-12,1,2499,Credit Card,4,Good quality jeans

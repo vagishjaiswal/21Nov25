@@ -1,0 +1,9 @@
+customer_id,customer_name,customer_age,age_bracket,gender,location,mobile_number,email_address,signup_date,total_orders,last_order_date,loyalty_tier
+C001,Arjun Kapoor,32,30-40,Male,Mumbai,9876543220,arjun.kapoor@email.com,2023-03-10,28,2024-12-20,Gold
+C002,Neha Singh,26,25-35,Female,Delhi,9876543221,neha.singh@email.com,2023-06-15,15,2024-12-18,Silver
+C003,Rohan Patel,38,35-45,Male,Ahmedabad,9876543222,rohan.patel@email.com,2022-11-20,42,2024-12-19,Platinum
+C004,Aisha Khan,29,25-35,Female,Bangalore,9876543223,aisha.khan@email.com,2023-08-05,22,2024-12-20,Silver
+C005,Vikrant Sharma,45,40-50,Male,Pune,9876543224,vikrant.sharma@email.com,2022-05-12,58,2024-12-17,Platinum
+C006,Priya Desai,27,25-35,Female,Hyderabad,9876543225,priya.desai@email.com,2023-09-18,18,2024-12-19,Silver
+C007,Rahul Gupta,35,30-40,Male,Jaipur,9876543226,rahul.gupta@email.com,2023-02-08,31,2024-12-20,Gold
+C008,Sneha Menon,30,30-40,Female,Chennai,9876543227,sneha.menon@email.com,2023-04-22,25,2024-12-18,Silver

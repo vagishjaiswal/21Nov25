@@ -1,0 +1,94 @@
+context:
+yOU CAN analyze the attached folder and files. This is already generated code which can be used to load CSV files as upload for any new retail business separately. Already a Z-mart data is kept as sample. Code behave as a indian  Retail Business Item Promoting Meme message creator Ai agent, this will use OpenAI to generate creative the personalized text messages with the item detail and based on user data - purchase history, age group, region, season, festival, and retail business data of item - item specifications, festive / seasonal discounts.
+ ===================== 
+your Role: your role is to modify the code with minimal code changes without creating any document or readme after change 
+=====================
+Your Task: help to modify the code to add option to generate promotional message also by just selecting any item for all the users as a broadcast message  based on season, festival , discounts etc. 
+Don't create any additional readme and respond with minimal information and use token for code changes efficiently.
+====================
+
+
+Context:
+"📢 Broadcast Messages" getting generated for each user in which are in "👥 Target Audience: 20 users" if the criteria is filtering 20 users it is generating 20 different messages, it should only generate 1 common message based on all the filters and item selected for all the Target Audience.
+Role: Developer with minimal code change and no documentation change. 
+Task-1: Modify the code without adding or modifying any documentation.
+Key note: use tokens efficiently. 
+Task-2: use document-processor and allow user to upload images also  to be consumed in its specific business  considered in generating messages.
+
+
+
+=========================
+
+
+
+You are an expert Python developer specializing in data processing and AI integration. 
+Your task is to enhance the retail promotional agent to accept CSV files in ANY format/schema.
+CURRENT PROBLEM:
+The retail promo agent currently requires CSV files with rigid, predefined column names:
+- Items CSV: must have item_id, item_name, category, price, discount_percentage, etc.
+- Users CSV: must have user_id, name, age, region, preferred_language, etc.
+- Purchase History CSV: must have user_id, item_id, purchase_date, quantity, etc.
+If columns don't match exactly, the code crashes with KeyError.
+REQUIRED SOLUTION:
+1. **FLEXIBLE CSV SCHEMA DETECTION**
+   - When user uploads a CSV, automatically detect available columns
+   - Use an LLM (OpenAI GPT-4) to intelligently map user's columns to expected fields
+   - Example: If user has 'product_name' instead of 'item_name', the AI should map it
+   - Create a mapping configuration that user can review/edit before processing
+2. **INTELLIGENT DATA TRANSFORMATION**
+   - After column mapping is confirmed, transform the CSV data:
+     * Missing critical columns → generate synthetic data using LLM based on existing data
+     * Wrong data types → convert automatically (e.g., string to numeric)
+     * Missing values → use LLM to intelligently fill gaps based on context
+   - Example: If 'age' column is missing, infer from 'age_group' or other demographic data
+3. **DYNAMIC PROMPT GENERATION**
+   - When processing, generate dynamic prompts for vector store that work with available data
+   - Don't force structured templates - adapt to what data actually exists
+   - Store metadata about which fields were available/generated for transparency
+4. **IMPLEMENTATION DETAILS**
+   a) Create a new module: flexible_csv_processor.py
+      - Function: detect_csv_schema(dataframe) → returns detected column purposes
+      - Function: map_columns_with_ai(df, detected_schema) → returns mapping dict
+      - Function: transform_data_with_ai(df, column_mapping) → returns cleaned df
+
+   b) Update retail_data_processor.py:
+      - Make column references flexible (use mapping dict instead of hardcoded names)
+      - Handle missing columns gracefully
+      - Use LLM to generate synthetic data for missing critical fields
+
+   c) Update retail_promo_agent.py Upload Data tab:
+      - After user uploads CSV, show column detection UI
+      - Display detected schema with confidence scores
+      - Let user confirm/edit column mappings
+      - Show data transformation summary before processing
+
+   d) Update retail_rag_engine.py:
+      - Adapt chunk generation to available fields
+      - Store original field names in metadata for reference
+5. **USER EXPERIENCE FLOW**
+   - User uploads CSV
+   - System: "Analyzing your CSV format..."
+   - Show: "Detected columns: [list], Confidence: 85%"
+   - Show: Proposed column mapping (user can edit)
+   - Show: Which fields will be auto-generated/transformed
+   - Button: "Confirm & Process"
+   - System processes with flexibility
+6. **ERROR HANDLING**
+   - If CSV has NO recognizable columns → ask user to manually map columns
+   - If critical data is completely missing → warn user but continue with available data
+   - Log all transformations for transparency
+7. **KEY FEATURES TO PRESERVE**
+   - Keep existing vector store functionality
+   - Keep promotional message generation same
+   - Ensure AI-generated data quality is high
+   - Maintain backward compatibility with correctly-formatted CSVs
+CONSTRAINTS:
+- Use existing dependencies (pandas, langchain, openai, streamlit)
+- Don't break existing code - make changes backward compatible
+- Test with sample CSVs of different formats
+- with minimal code change and no documentation addition/modification. 
+OUTPUT:
+- Updated code files with flexible CSV handling
+- New flexible_csv_processor.py module
+- Updated Streamlit UI for column mapping
+- Error handling for edge cases

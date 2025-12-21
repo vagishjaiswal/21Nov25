@@ -1,0 +1,11 @@
+item_id,item_name,category,subcategory,price,original_price,discount_percentage,stock_quantity,description,keywords,brand,seasonal_relevance,festival_relevance,region_popular,specifications
+MP001,Margherita Pizza,Pizza,Thin Crust,399,150,5,0.0,"vegetarian,cheese,classic",,Domino's Pizza,All Year,Diwali special discount,Delhi,"Diameter: 12 inches, Servings: 2-3, Cooking Time: 15-20 minutes"
+MP002,Pepperoni Special,Pizza,Thick Crust,549,220,10,0.0,"non-veg,meat,popular",,Pizza Hut,Summer Special,Christmas feast offer,Mumbai,"Diameter: 14 inches, Servings: 3-4, Cooking Time: 20-25 minutes"
+MP003,Farmhouse Veggie,Pizza,Thin Crust,449,180,8,0.0,"vegetarian,healthy,fresh",,Papa John's,Winter Delight,New Year's Eve party pack,Bangalore,"Diameter: 10 inches, Servings: 1-2, Cooking Time: 10-15 minutes"
+MP004,Paneer Tikka Masala,Pizza,Thick Crust,499,200,5,0.0,"vegetarian,fusion,spicy",,Sbarro,Monsoon Mania,Holi festive meal combo,Hyderabad,"Ingredients: Wheat dough, Mozzarella cheese, Fresh vegetables"
+MP005,BBQ Chicken Delight,Pizza,Thin Crust,599,240,12,0.0,"non-veg,bbq,smoky",,California Pizza Kitchen,Festive Season,Eid special menu,Chennai,"Ingredients: Wheat dough, Mozzarella cheese, Premium pepperoni"
+MP006,Veggie Supreme,Pizza,Thin Crust,469,185,7,0.0,"vegetarian,premium,nutritious",,Little Caesars,Spring Fling,Navratri vegetarian specials,Kolkata,"Ingredients: Wheat dough, Mozzarella cheese, BBQ chicken, Fresh vegetables"
+MP007,Garlic Bread (4 pcs),Side,Bread,199,60,10,0.0,"appetizer,bread,garlic",,Pizza Express,Autumn Aroma,Pongal harvest feast,Pune,"Ingredients: Wheat dough, Paneer tikka, Tandoori sauce, Mozzarella cheese"
+MP008,Cheese Garlic Bread (4 pcs),Side,Bread,249,90,8,0.0,"appetizer,cheese,bread",,Smokin' Joe's,Holi Hungama,Dussehra celebration meal,Jaipur,"Specialty: Thin crust, Vegetarian"
+MP009,Coke 500ml,Beverage,Soft Drink,50,15,5,0.0,"beverage,cold,coke",,Eagle Boys Pizza,Diwali Dhamaka,Baisakhi food fest deal,Ahmedabad,"Specialty: Thick crust, Non-vegetarian"
+MP010,Sprite 500ml,Beverage,Soft Drink,50,15,5,0.0,"beverage,cold,sprite",,Pizza Corner,Ramadan Special,Raksha Bandhan sibling special offer,Lucknow,"Specialty: Thin crust, Non-vegetarian, BBQ flavored"

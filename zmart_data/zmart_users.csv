@@ -1,0 +1,21 @@
+user_id,name,age,age_group,gender,region,city,state,phone,email,registration_date,total_purchases,last_purchase_date,favorite_categories,preferred_language,loyalty_points
+U001,Rajesh Kumar,35,30-40,Male,West,Mumbai,Maharashtra,9876543210,rajesh.kumar@email.com,2023-01-15,45,2024-12-18,"Groceries,Electronics,Home & Kitchen",Hindi,2500
+U002,Priya Sharma,28,25-35,Female,North,Delhi,Delhi,9876543211,priya.sharma@email.com,2023-02-20,62,2024-12-20,"Fashion,Beauty,Groceries",Hindi,3800
+U003,Amit Patel,42,40-50,Male,West,Ahmedabad,Gujarat,9876543212,amit.patel@email.com,2022-11-10,89,2024-12-19,"Groceries,Electronics,Sports",Gujarati,5600
+U004,Sneha Reddy,31,30-40,Female,South,Hyderabad,Telangana,9876543213,sneha.reddy@email.com,2023-03-05,53,2024-12-17,"Groceries,Fashion,Home & Kitchen",Telugu,4200
+U005,Vikram Singh,45,40-50,Male,North,Jaipur,Rajasthan,9876543214,vikram.singh@email.com,2022-09-18,72,2024-12-15,"Groceries,Electronics,Books",Hindi,4800
+U006,Ananya Iyer,26,25-35,Female,South,Chennai,Tamil Nadu,9876543215,ananya.iyer@email.com,2023-04-12,38,2024-12-19,"Fashion,Beauty,Groceries",Tamil,2900
+U007,Rahul Verma,38,35-45,Male,North,Lucknow,Uttar Pradesh,9876543216,rahul.verma@email.com,2023-01-28,56,2024-12-18,"Groceries,Electronics,Home & Kitchen",Hindi,3600
+U008,Deepika Nair,29,25-35,Female,South,Bangalore,Karnataka,9876543217,deepika.nair@email.com,2023-05-20,47,2024-12-20,"Fashion,Groceries,Health & Wellness",Kannada,3200
+U009,Arjun Desai,33,30-40,Male,West,Pune,Maharashtra,9876543218,arjun.desai@email.com,2022-12-08,68,2024-12-16,"Electronics,Groceries,Sports",Marathi,4500
+U010,Kavya Menon,24,18-25,Female,South,Kochi,Kerala,9876543219,kavya.menon@email.com,2023-06-15,31,2024-12-19,"Fashion,Beauty,Books",Malayalam,2100
+U011,Sanjay Gupta,50,50-60,Male,East,Kolkata,West Bengal,9876543220,sanjay.gupta@email.com,2022-08-22,95,2024-12-17,"Groceries,Electronics,Home & Kitchen",Bengali,6200
+U012,Meera Joshi,36,35-45,Female,West,Mumbai,Maharashtra,9876543221,meera.joshi@email.com,2023-02-14,59,2024-12-18,"Groceries,Fashion,Health & Wellness",Marathi,3900
+U013,Karan Malhotra,27,25-35,Male,North,Chandigarh,Punjab,9876543222,karan.malhotra@email.com,2023-07-10,42,2024-12-20,"Electronics,Sports,Groceries",Punjabi,2800
+U014,Pooja Banerjee,32,30-40,Female,East,Kolkata,West Bengal,9876543223,pooja.banerjee@email.com,2023-03-25,51,2024-12-19,"Fashion,Groceries,Books",Bengali,3400
+U015,Aditya Rao,41,40-50,Male,South,Bangalore,Karnataka,9876543224,aditya.rao@email.com,2022-10-30,76,2024-12-16,"Electronics,Groceries,Home & Kitchen",Kannada,5100
+U016,Ritu Singh,30,30-40,Female,North,Delhi,Delhi,9876543225,ritu.singh@email.com,2023-04-18,48,2024-12-18,"Fashion,Beauty,Groceries",Hindi,3100
+U017,Manish Agarwal,44,40-50,Male,East,Patna,Bihar,9876543226,manish.agarwal@email.com,2022-11-20,63,2024-12-17,"Groceries,Electronics,Sports",Hindi,4300
+U018,Nisha Kapoor,25,25-35,Female,North,Delhi,Delhi,9876543227,nisha.kapoor@email.com,2023-08-05,36,2024-12-20,"Fashion,Beauty,Books",Hindi,2400
+U019,Suresh Pillai,48,40-50,Male,South,Trivandrum,Kerala,9876543228,suresh.pillai@email.com,2022-09-12,82,2024-12-15,"Groceries,Electronics,Home & Kitchen",Malayalam,5500
+U020,Divya Shah,34,30-40,Female,West,Ahmedabad,Gujarat,9876543229,divya.shah@email.com,2023-01-22,55,2024-12-19,"Fashion,Groceries,Health & Wellness",Gujarati,3700
