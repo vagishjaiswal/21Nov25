@@ -69,10 +69,10 @@ graph TB
     E --> L
     F --> M
     
-    style A fill:#667eea
-    style G fill:#ffd700
-    style H fill:#90EE90
-    style I fill:#FFB6C1
+    style A fill:#667eea,stroke:#333,color:#fff
+    style G fill:#ffd700,stroke:#333,color:#333
+    style H fill:#90EE90,stroke:#333,color:#333
+    style I fill:#FFB6C1,stroke:#333,color:#333
 ```
 
 ---
@@ -370,8 +370,7 @@ retail_vector_dbs/
 ---
 
 ## 🚀 User Journey & Step-by-Step Guide
-
-### Complete Workflow Diagram
+### Complete Workflow Diagram - Phase 1: Business Setup
 
 ```mermaid
 flowchart TD
@@ -385,71 +384,64 @@ flowchart TD
     B2 --> B3[Click 'Register Business']
     B3 --> C
     
-    C --> D[Navigate to Upload Data Tab]
-    
-    D --> E[Upload Items CSV]
-    E --> E1[🤖 Detect Schema]
-    E1 --> E2{Schema<br/>OK?}
-    E2 -->|Edit| E1
-    E2 -->|Confirm| E3[💾 Save & Transform]
-    
-    E3 --> F[Upload Users CSV]
-    F --> F1[🤖 Detect Schema]
-    F1 --> F2{Schema<br/>OK?}
-    F2 -->|Edit| F1
-    F2 -->|Confirm| F3[💾 Save & Transform]
-    
-    F3 --> G[Upload Purchase History CSV]
-    G --> G1[🤖 Detect Schema]
-    G1 --> G2{Schema<br/>OK?}
-    G2 -->|Edit| G1
-    G2 -->|Confirm| G3[💾 Save & Transform]
-    
-    G3 --> H{Upload<br/>Images?}
-    H -->|Yes| I[Select Images]
-    I --> I1[Preview Images]
-    I1 --> I2[💾 Save & Process]
-    I2 --> J
-    H -->|No| J
-    
-    J[🚀 Process Data & Load to Vector DB]
-    J --> K[Data Loaded Successfully!]
-    
-    K --> L{What to<br/>Generate?}
-    
-    L -->|Individual| M[Generate Messages Tab]
-    L -->|Broadcast| N[Broadcast Messages Tab]
-    
-    M --> M1[Select Customer]
-    M1 --> M2[Select Item]
-    M2 --> M3[Set Season/Festival/Tone]
-    M3 --> M4[🎯 Generate Message]
-    M4 --> M5[View Personalized Message]
-    M5 --> M6[Copy Message]
-    
-    N --> N1[Select Item]
-    N1 --> N2[Set Season/Festival/Tone]
-    N2 --> N3[Filter Audience]
-    N3 --> N3a[Age Group]
-    N3a --> N3b[Region]
-    N3b --> N3c[Gender]
-    N3c --> N4[📢 Generate Broadcast]
-    N4 --> N5[View Single Message]
-    N5 --> N6[View Recipients List]
-    N6 --> N7[📥 Download CSV/JSON]
-    
-    M6 --> O{Continue?}
-    N7 --> O
-    O -->|Yes| L
-    O -->|No| End([Done])
+    C --> End([Business Ready])
     
     style Start fill:#90EE90
     style End fill:#FFB6C1
-    style E1 fill:#ffd700
-    style F1 fill:#ffd700
-    style G1 fill:#ffd700
-    style M4 fill:#667eea
-    style N4 fill:#667eea
+    style B fill:#667eea
+```
+
+### Complete Workflow Diagram - Phase 2: CSV Data Upload with AI Detection
+
+```mermaid
+flowchart TD
+    Start([Business Selected]) --> A[Navigate to Upload Data Tab]
+    
+    A --> B[Upload Items CSV]
+    B --> B1[🤖 Detect Schema]
+    B1 --> B2{Schema<br/>OK?}
+    B2 -->|Edit| B1
+    B2 -->|Confirm| B3[💾 Save & Transform]
+    
+    B3 --> C[Upload Users CSV]
+    C --> C1[🤖 Detect Schema]
+    C1 --> C2{Schema<br/>OK?}
+    C2 -->|Edit| C1
+    C2 -->|Confirm| C3[💾 Save & Transform]
+    
+    C3 --> D[Upload Purchase History CSV]
+    D --> D1[🤖 Detect Schema]
+    D1 --> D2{Schema<br/>OK?}
+    D2 -->|Edit| D1
+    D2 -->|Confirm| D3[💾 Save & Transform]
+    
+    D3 --> End([All CSVs Processed])
+    
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style B1 fill:#ffffff,color:#000000
+    style C1 fill:#ffffff,color:#000000
+    style D1 fill:#ffffff,color:#000000
+```
+
+### Complete Workflow Diagram - Phase 3: Image Upload & Ready State
+
+```mermaid
+flowchart TD
+    Start([CSV Data Processed]) --> A{Upload<br/>Images?}
+    
+    A -->|Yes| B[Select Images]
+    B --> C[Preview Images]
+    C --> D[💾 Save & Process]
+    D --> E[Images Analyzed with GPT-4 Vision]
+    E --> End([Ready for Message Generation])
+    
+    A -->|No| End
+    
+    style Start fill:#90EE90
+    style End fill:#FFB6C1
+    style D fill:#ffffff,color:#000000
+    style E fill:#ffffff,color:#000000
 ```
 
 ---

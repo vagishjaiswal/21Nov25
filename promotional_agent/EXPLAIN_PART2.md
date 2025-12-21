@@ -70,7 +70,7 @@
    
 3. **Behind the Scenes**:
    ```mermaid
-   sequenceDiagram
+sequenceDiagram
        participant U as User
        participant DP as Data Processor
        participant RAG as RAG Engine
@@ -88,7 +88,7 @@
        AI-->>RAG: Return vectors
        RAG->>DB: Store chunks + embeddings
        DB-->>U: ✅ Success! X chunks indexed
-   ```
+```
 
 4. **Success**:
    - Shows: "✅ Successfully processed 847 data chunks!"
@@ -433,10 +433,10 @@ graph TB
     GPT4 --> MSG
     MSG --> EXPORT
     
-    style FLEX fill:#ffd700
-    style GPT4 fill:#ffd700
-    style CHROMA fill:#90EE90
-    style MSG fill:#FFB6C1
+    style FLEX fill:#e3d5f5,stroke:#333,color:#333
+    style GPT4 fill:#f3e5f5,stroke:#333,color:#333
+    style CHROMA fill:#fce4ec,stroke:#333,color:#333
+    style MSG fill:#e3f2fd,stroke:#333,color:#333
 ```
 
 ---
@@ -499,43 +499,163 @@ sequenceDiagram
 ```
 
 ---
+---
 
+### Message Generation Flow (Detailed)
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant UI as Streamlit UI
+    participant Manager as Business Manager
+    participant Processor as Data Processor
+    participant RAG as RAG Engine
+    participant VDB as Vector DB
+    participant GPT as GPT-4
+    
+    Note over User,GPT: Individual Message Generation
+    
+    User->>UI: Select Customer & Item
+    UI->>UI: Build context (season, festival, tone)
+    
+    UI->>RAG: Query with context
+    
+    RAG->>GPT: Generate query embedding
+    GPT-->>RAG: Embedding vector
+    
+    RAG->>VDB: Search similar chunks (top 8)
+    VDB-->>RAG: Relevant documents
+    Note over VDB,RAG: Returns:<br/>- Customer profile<br/>- Item details<br/>- Purchase history<br/>- Insights
+    
+    RAG->>RAG: Check guardrails
+    RAG->>GPT: Generate message
+    Note over RAG,GPT: Sends:<br/>- System prompt<br/>- Context docs<br/>- User query
+    
+    GPT-->>RAG: Creative message
+    RAG-->>UI: Message + sources
+    
+    UI->>UI: Display styled message
+    UI->>User: Show result + copy option
+    
+    Note over User,GPT: Broadcast Message Generation
+    
+    User->>UI: Select Item + Filters
+    UI->>Manager: Get filtered users (age/region/gender)
+    Manager-->>UI: User list (e.g., 234 users)
+    
+    UI->>RAG: ONE query with aggregate info
+    Note over UI,RAG: Includes:<br/>- Age groups summary<br/>- Regional distribution<br/>- Item details
+    
+    RAG->>VDB: Retrieve context
+    VDB-->>RAG: Relevant chunks
+    
+    RAG->>GPT: Generate SINGLE message
+    GPT-->>RAG: Universal message
+    
+    RAG-->>UI: One message
+    UI->>UI: Replicate for all users
+    UI->>User: Display message + recipients
+    UI->>User: Export CSV/JSON option
+```
+### System Architecture Overview
+
+```mermaid
+graph LR
+   subgraph Input["🔵 INPUT"]
+      CSV["📄 CSVs<br/>Items, Users,<br/>Purchases"]
+      IMG["🖼️ Images<br/>Business<br/>Visuals"]
+   end
+   
+   subgraph Process["🟣 PROCESSING"]
+      DETECT["🧠 Schema<br/>Detection"]
+      TRANSFORM["⚙️ Data<br/>Transform"]
+      CHUNK["📦 Create<br/>Chunks"]
+   end
+   
+   subgraph Embed["🟠 EMBEDDING"]
+      EMB["🔑 Generate<br/>Vectors"]
+      VDB[("💾 ChromaDB<br/>Vector Store")]
+   end
+   
+   subgraph Gen["🟡 GENERATION"]
+      RAG["🎯 RAG<br/>Retriever"]
+      GPT["✨ GPT-4<br/>Generator"]
+      MSG["💬 Messages"]
+      EXPORT["📊 Export"]
+   end
+   
+   CSV --> DETECT
+   IMG --> DETECT
+   DETECT --> TRANSFORM
+   TRANSFORM --> CHUNK
+   CHUNK --> EMB
+   EMB --> VDB
+   VDB --> RAG
+   RAG --> GPT
+   GPT --> MSG
+   MSG --> EXPORT
+   
+   style Input fill:#1a3a52,color:#fff
+   style Process fill:#2d5a7b,color:#fff
+   style Embed fill:#3d7aaa,color:#fff
+   style Gen fill:#4d9adb,color:#fff
+```
+
+
+---
 ### CSV Schema Detection Flow
 
 ```mermaid
 flowchart LR
-    A[User Uploads CSV<br/>Unknown Format] --> B[Flexible CSV Processor]
-    
-    B --> C{Read Columns}
-    C --> D[User Columns:<br/>product_name, cost,<br/>manufacturer, type]
-    
-    D --> E[GPT-4 Analysis]
-    E --> F{AI Mapping}
-    
-    F --> G[Mappings:<br/>product_name → item_name 95%<br/>cost → price 90%<br/>manufacturer → brand 85%<br/>type → category 80%]
-    
-    F --> H[Missing Fields:<br/>item_id<br/>discount_percentage<br/>seasonal_relevance<br/>festival_relevance]
-    
-    G --> I[User Reviews Mappings]
-    H --> J[AI Generates Data]
-    
-    I --> K{Confirm?}
-    K -->|Yes| L[Transform DataFrame]
-    K -->|No| E
-    
-    J --> L
-    
-    L --> M[Apply Mappings]
-    M --> N[Add Generated Fields]
-    N --> O[Convert Data Types]
-    O --> P[Save Transformed CSV]
-    
-    P --> Q[✅ Ready for Processing]
-    
-    style E fill:#ffd700
-    style J fill:#ffd700
-    style Q fill:#90EE90
+   A[User Uploads CSV<br/>Unknown Format] --> B[Flexible CSV Processor]
+   
+   B --> C{Read Columns}
+   C --> D[User Columns:<br/>product_name, cost,<br/>manufacturer, type]
+   
+   D --> E[GPT-4 Analysis]
+   E --> F{AI Mapping}
+   
+   F --> G[Mappings:<br/>product_name → item_name 95%<br/>cost → price 90%<br/>manufacturer → brand 85%<br/>type → category 80%]
+   
+   F --> H[Missing Fields:<br/>item_id<br/>discount_percentage<br/>seasonal_relevance<br/>festival_relevance]
+   
+   G --> I[User Reviews Mappings]
+   H --> J[AI Generates Data]
+   
+   I --> K{Confirm?}
+   K -->|Yes| L[Transform DataFrame]
+   K -->|No| E
+   
+   J --> L
+   
+   L --> M[Apply Mappings]
+   M --> N[Add Generated Fields]
+   N --> O[Convert Data Types]
+   O --> P[Save Transformed CSV]
+   
+   P --> Q[✅ Ready for Processing]
+   
+   style E fill:#fffacd,color:#000
+   style J fill:#fffacd,color:#000
+   style Q fill:#e8f5e9,color:#000
 ```
+
+### The Magic Happens Here 🎯
+
+```mermaid
+flowchart TD
+   A["📤 Your Messy CSV"] -->|"AI reads it"| B["🧠 Smart Detection"]
+   B -->|"Understands meaning"| C["🔄 Auto-Maps Columns"]
+   C -->|"Fills blanks"| D["✨ Generates Missing Data"]
+   D -->|"Polishes it"| E["✅ Perfect CSV Ready!"]
+   
+   style A fill:#ffebee,stroke:#c62828,color:#000
+   style B fill:#fff3e0,stroke:#e65100,color:#000
+   style C fill:#f3e5f5,stroke:#6a1b9a,color:#000
+   style D fill:#e3f2fd,stroke:#1565c0,color:#000
+   style E fill:#e8f5e9,stroke:#2e7d32,color:#000
+```
+
 
 ---
 
@@ -727,13 +847,64 @@ This system revolutionizes retail promotional messaging by:
 4. **Highly personalized** - Uses real customer data
 5. **Flexible and customizable** - Edit prompts on-the-fly
 6. **Scalable** - Multi-business support
+### 🛠️ Technology Stack
 
-**Technology Stack**:
-- Frontend: Streamlit
-- AI: OpenAI GPT-4 + Embeddings
-- Vector DB: ChromaDB
-- Data: Pandas
-- Storage: File system
+```mermaid
+graph TB
+   subgraph Frontend["🎨 Frontend Layer"]
+      ST["Streamlit<br/>Web UI & Interactions"]
+   end
+   
+   subgraph AI["🤖 AI & ML Layer"]
+      GPT["OpenAI GPT-4<br/>Message Generation"]
+      EMB["OpenAI Embeddings<br/>Vector Generation"]
+      VISION["GPT-4 Vision<br/>Image Analysis"]
+   end
+   
+   subgraph Data["📊 Data Layer"]
+      PD["Pandas<br/>CSV Processing"]
+      FLEX["Flexible Schema<br/>Detection"]
+   end
+   
+   subgraph Storage["💾 Storage Layer"]
+      CHROMA["ChromaDB<br/>Vector Database"]
+      FS["File System<br/>CSV & Config"]
+   end
+   
+   subgraph Langs["💻 Languages & Libraries"]
+      PYTHON["Python 3.8+"]
+      OTHER["python-dotenv<br/>Pillow, pytesseract"]
+   end
+   
+   ST --> GPT
+   ST --> EMB
+   ST --> PD
+   ST --> VISION
+   GPT --> CHROMA
+   EMB --> CHROMA
+   PD --> FLEX
+   FLEX --> FS
+   CHROMA --> FS
+   PYTHON --> ST
+   PYTHON --> EMB
+   OTHER --> PD
+   
+   style Frontend fill:#1a1a1a,stroke:#000,color:#fff
+   style AI fill:#1a1a1a,stroke:#000,color:#fff
+   style Data fill:#1a1a1a,stroke:#000,color:#fff
+   style Storage fill:#1a1a1a,stroke:#000,color:#fff
+   style Langs fill:#1a1a1a,stroke:#000,color:#fff
+   style ST fill:#000,stroke:#333,color:#fff
+   style GPT fill:#000,stroke:#333,color:#fff
+   style EMB fill:#000,stroke:#333,color:#fff
+   style VISION fill:#000,stroke:#333,color:#fff
+   style PD fill:#000,stroke:#333,color:#fff
+   style FLEX fill:#000,stroke:#333,color:#fff
+   style CHROMA fill:#000,stroke:#333,color:#fff
+   style FS fill:#000,stroke:#333,color:#fff
+   style PYTHON fill:#000,stroke:#333,color:#fff
+   style OTHER fill:#000,stroke:#333,color:#fff
+```
 
 **Key Innovation**: Flexible CSV processing makes this accessible to ANY retail business, regardless of their data format!
 
